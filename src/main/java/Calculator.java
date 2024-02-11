@@ -33,8 +33,8 @@ class AskingCalculator {
                     }
                 } else {
                     System.out.println("Ошибка в цене. Введите еще раз:");
+                    inputNameScanner.next();
                 }
-                inputNameScanner.next();
             }
         }
     }
@@ -47,20 +47,28 @@ class AskingCalculator {
             result += goodsPrices.get(i);
         }
         double summary = result / count;
-        int resultInt = (int) summary;
+        int secondLastNumber = (int) Math.floor(summary) % 100 / 10;
 
-        switch (resultInt % 10) {
-            case 1 -> {
-                String messageTemplate = "С человека: %.2f рубль";
-                System.out.printf((messageTemplate) + "%n", summary);
-            }
-            case 2, 3, 4 -> {
-                String messageTemplate = "С человека: %.2f рубля";
-                System.out.printf((messageTemplate) + "%n", summary);
-            }
-            default -> {
-                String messageTemplate = "С человека: %.2f рублей";
-                System.out.printf((messageTemplate) + "%n", summary);
+        if (secondLastNumber == 1) {
+            String messageTemplate = "С человека: %.2f рублей";
+            System.out.printf((messageTemplate) + "%n", summary);
+        } else {
+
+            int resultInt = (int) summary;
+
+            switch (resultInt % 10) {
+                case 1 -> {
+                    String messageTemplate = "С человека: %.2f рубль";
+                    System.out.printf((messageTemplate) + "%n", summary);
+                }
+                case 2, 3, 4 -> {
+                    String messageTemplate = "С человека: %.2f рубля";
+                    System.out.printf((messageTemplate) + "%n", summary);
+                }
+                default -> {
+                    String messageTemplate = "С человека: %.2f рублей";
+                    System.out.printf((messageTemplate) + "%n", summary);
+                }
             }
         }
     }
